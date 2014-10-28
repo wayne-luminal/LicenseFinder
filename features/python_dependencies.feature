@@ -4,6 +4,6 @@ Feature: Tracking Python Dependencies
   I want to be able to manage Python dependencies
 
   Scenario: See the dependencies from the requirements file
-    Given A requirements file with dependencies
+    Given a requirements file with a dependency "argparse==1.2.1"
     When I run license_finder
-    Then I should see a Python dependency with a license
+    Then I should only see a license "argparse, 1.2.1, Python Software Foundation License"

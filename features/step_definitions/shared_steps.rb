@@ -28,16 +28,24 @@ Then(/^I should see the project name (\w+) in the html$/) do |project_name|
   end
 end
 
+Then(/^I should see a license "(.*?)"$/) do |license_line|
+  expect(@user.csv).to include(license_line)
+end
+
+Then(/^I should only see a license "(.*?)"$/) do |license_line|
+  expect(@user.csv).to include(license_line)
+  expect(@user.csv.split("\n").count).to eq 1
+end
 
 module DSL
   class User
-    def create_python_app
+    def create_python_app dependency=null
       reset_projects!
 
       app_path.mkpath
       shell_out("cd #{app_path} && touch requirements.txt")
 
-      add_pip_dependency('argparse==1.2.1')
+      add_pip_dependency dependency if dependency
 
       pip_install
     end
@@ -167,6 +175,10 @@ module DSL
       in_html do |page|
         yield page.find("##{gem_name}")
       end
+    end
+
+    def csv
+      File.read(File.join(app_path, "doc/dependencies.csv"))
     end
 
     private
