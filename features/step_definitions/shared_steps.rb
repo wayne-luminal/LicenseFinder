@@ -290,6 +290,7 @@ module DSL
     def shell_out(command, allow_failures = false)
       output = `#{command} 2>&1`
       status = $?
+      puts output
       unless status.success? || allow_failures
         message_format = <<EOM
 Command failed: `%s`

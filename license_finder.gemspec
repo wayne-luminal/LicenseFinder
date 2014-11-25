@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
     s.add_development_dependency gem
   end
 
+  s.add_development_dependency "timecop"
   s.add_development_dependency "rspec", "~> 3"
   s.add_development_dependency "capybara", "~> 2.0.0"
   s.add_development_dependency "webmock", "~> 1.13"
