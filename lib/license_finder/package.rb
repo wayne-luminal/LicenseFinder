@@ -6,13 +6,12 @@ module LicenseFinder
   #
   #     it_behaves_like "a Package"
   #
-  # Additional guidelines are:
+  # Some obvious options for implementation
   #
-  # - if you're going to use Package#licenses ...
+  # - use the standard Package#determine_license:
   #   - implement #licenses_names_from_spec
-  #   - implement #install_path
-  # - else
-  #   - implement #licenses
+  #   - implement #install_path or #license_files
+  # - implement your own determine_license
   #
   class Package
     attr_reader :logger
@@ -73,6 +72,34 @@ module LicenseFinder
 
     def install_path
       nil
+    end
+
+    def children
+      raise NotImplementedError, "#children must be implemented"
+    end
+
+    def name
+      raise NotImplementedError, "#name must be implemented"
+    end
+
+    def version
+      raise NotImplementedError, "#version must be implemented"
+    end
+
+    def summary
+      raise NotImplementedError, "#summary must be implemented"
+    end
+
+    def description
+      raise NotImplementedError, "#description must be implemented"
+    end
+
+    def homepage
+      raise NotImplementedError, "#homepage must be implemented"
+    end
+
+    def groups
+      raise NotImplementedError, "#groups must be implemented"
     end
   end
 end
