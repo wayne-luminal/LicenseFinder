@@ -27,6 +27,7 @@ module LicenseFinder
   autoload :Maven,                'license_finder/package_managers/maven'
   autoload :CocoaPods,            'license_finder/package_managers/cocoa_pods'
   autoload :Gradle,               'license_finder/package_managers/gradle'
+  autoload :Godep,                'license_finder/package_managers/godep'
   autoload :BowerPackage,         'license_finder/package_managers/bower_package'
   autoload :BundlerPackage,       'license_finder/package_managers/bundler_package'
   autoload :PipPackage,           'license_finder/package_managers/pip_package'
@@ -34,6 +35,7 @@ module LicenseFinder
   autoload :MavenPackage,         'license_finder/package_managers/maven_package'
   autoload :GradlePackage,        'license_finder/package_managers/gradle_package'
   autoload :CocoaPodsPackage,     'license_finder/package_managers/cocoa_pods_package'
+  autoload :GodepPackage,         'license_finder/package_managers/godep_package'
 
 
   autoload :BundlerGroup,         'license_finder/tables/bundler_group'

@@ -3,12 +3,13 @@ module LicenseFinder
     CANDIDATE_FILE_NAMES = %w(LICENSE License Licence COPYING README Readme ReadMe)
     CANDIDATE_PATH_WILDCARD = "*{#{CANDIDATE_FILE_NAMES.join(',')}}*"
 
-    def self.find(install_path)
-      new(install_path).find
+    def self.find(install_path, options={})
+      new(install_path, options).find
     end
 
-    def initialize(install_path)
+    def initialize(install_path, options={})
       @install_path = install_path ? Pathname(install_path) : nil
+      @recursive_descent = options.key?(:recursive_descent) ? options[:recursive_descent] : true
     end
 
     def find
@@ -29,7 +30,12 @@ module LicenseFinder
 
     def candidate_files_and_dirs
       return [] if install_path.nil?
-      Pathname.glob(install_path.join('**', CANDIDATE_PATH_WILDCARD))
+      glob = if @recursive_descent
+               install_path.join('**', CANDIDATE_PATH_WILDCARD)
+             else
+               install_path.join(CANDIDATE_PATH_WILDCARD)
+             end
+      Pathname.glob glob
     end
 
     def file_at_path(path)
