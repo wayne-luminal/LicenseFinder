@@ -8,7 +8,7 @@ module LicenseFinder
         PipPackage.new(
           name,
           version,
-          pypi_def(name, version),
+          pip_def(name),
           logger: logger,
           children: children,
           install_path: Pathname(location).join(name),
@@ -40,6 +40,11 @@ module LicenseFinder
       else
         {}
       end
+    end
+
+    def pip_def(name)
+      output = `#{LicenseFinder::BIN_PATH.join("pip_def.py #{name}")}`
+      JSON.parse(output)
     end
   end
 end
