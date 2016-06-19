@@ -16,7 +16,11 @@ transform = lambda dist: {
         'dependencies': list(map(lambda dependency: dependency.project_name, dist.requires())),
         }
 
-packages = [transform(dist) for dist
-            in pkg_resources.working_set.resolve(requirements)]
+for req in requirements:
+    dist = pkg_resources.working_set.find(req)
+    dists_to_audit.append(dist)
+    first_level_reqs[dist.project_name] = dist.requires()
+
+packages = [transform(dist) for dist in first_level_reqs]
 
 print_(json.dumps(packages))
